@@ -26,12 +26,12 @@ var url1 = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=ZmIEawY
 //         // console.log(maxprice)
 //     }
 // })
-d3.json(url1).then((data) => {
-    console.log(data)
-})
+// d3.json(url1).then((data) => {
+//     console.log(data)
+// })
 function time(){
     var userTime = document.getElementById("userTime").value
-    var state = document.getElementById("inputGroupSelect01")
+    var state = document.getElementById("inputGroupSelect01").value
     var userTime = userTime.substr(0,11)+"00:00:00Z"
     var endTime = userTime.substr(0,11)+"23:59:00Z"
     console.log(userTime)

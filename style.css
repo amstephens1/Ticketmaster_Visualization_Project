@@ -1,5 +1,5 @@
-.header{
-    background-color: grey;
+.header-row{
+    background-color: lightblue;
     z-index:2;
 }
 html,
@@ -8,4 +8,9 @@ body,
   height: 100%;
   padding: 0;
   margin: 0;
+}
+.sticky{
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
