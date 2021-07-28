@@ -1,6 +1,11 @@
+
 .header-row{
     background-color: #1566D5;
     z-index:2;
+}
+.form-row{
+  background-color: #1566D5;
+  z-index:2;
 }
 html,
 body,
@@ -13,4 +18,34 @@ body,
     position: fixed;
     top: 0;
     width: 100%;
+}
+.sidenav {
+  height: 100%; 
+  width: 0; 
+  position: fixed; 
+  z-index: 1050; 
+  top: 0;
+  left: 0;
+  background-color: rgba(17, 17, 17, 0.829); 
+  overflow-x: hidden; 
+  padding-top: 60px; 
+  transition: 0.5s; 
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/* My Events list */
+#myList {
+  color: white;
 }

@@ -38,11 +38,22 @@ function createMarkers(data){
     var eventMarkers = []
 
     for (var i = 0; i < events.length; i++){
-        var eventmarker = L.marker([events[i]._embedded.venues[0].location.latitude, events[i]._embedded.venues[0].location.longitude])
-        .bindPopup("<h3>" + events[i].name +"<h3><h3>Start Time: " + events[i].dates.start.localTime + "</h3>"+ "<button>Submit</button>")
-        
-        eventMarkers.push(eventmarker)
-        }
+        // var customMarker = L.marker.extend({
+        //     options: {
+        //         name: events[i].name,
+        //         startTime: events[i].dates.start.localTime,
+        //         link: events[i].url
+        //     }
+        // })
+        eventMarkers[i] = new L.marker([events[i]._embedded.venues[0].location.latitude, events[i]._embedded.venues[0].location.longitude], {
+            name: events[i].name,
+            startTime: events[i].dates.start.localTime,
+            link: events[i].url
+          }).on('click', onMarkerClick)
+          .bindPopup("<h3>" + events[i].name +"<h3><h3>Start Time: " +
+           events[i].dates.start.localTime + "</h3>"+ 
+           "<button onclick=onMarkerClick()>Add to My Events</button>")}
+
     createMap(L.layerGroup(eventMarkers))
 }
 
@@ -61,7 +72,27 @@ function createUrl(){
     d3.json(url).then(createMarkers)
 }
 
-
+function onMarkerClick(e){
+    console.log(e.target.options.name)
+    // var node = document.createElement("LI");
+    // //   Change the Text to the applicable Info needed, Take from 
+    // var textnode = document.createTextNode(e.target.options.name + "\n");
+    // node.appendChild(textnode);
+    // document.getElementById("myList").appendChild(node);
+    
+    eventName = e.target.options.name
+    eventTime = e.target.options.startTime
+    eventUrl = e.target.options.link
+    var data = [eventName,eventTime,eventUrl]
+    d3.select("ul")
+        .selectAll("li")
+        .data(data)
+        .enter()
+        .append("li")
+        .text(function(d){
+            return d;
+        })
+}
 var header = d3.select("header-row")
 
 var sticky = header.offsetTop
@@ -77,3 +108,20 @@ var userTime = document.getElementById("userTime").value
 var state = document.getElementById("inputGroupSelect01").value
 console.log(userTime)
 console.log(state)
+function openNav() {
+    document.getElementById("mySidenav").style.width = "300px";
+    document.getElementById("main").style.marginLeft = "300px";
+  }
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+}
+function myEvents() {
+    // console.log(options)
+    var node = document.createElement("LI");
+  //   Change the Text to the applicable Info needed, Take from 
+    var textnode = document.createTextNode('events[i].name' + "\n");
+    node.appendChild(textnode);
+    document.getElementById("myList").appendChild(node);
+  }
+  
