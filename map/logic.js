@@ -34,27 +34,30 @@ function createMap(activities){
 function createMarkers(data){
     
     console.log(data)
-    var events = data._embedded.events
-    var eventMarkers = []
+    // Error Message via SweetAlert
+    if (data.page.totalElements == 0){
+        swal("There are no events available.", {
+            title: "Try Again!",
+            closeOnClickOutside: false,
+          });
+        return;
+        
+    }else {
 
-    for (var i = 0; i < events.length; i++){
-        // var customMarker = L.marker.extend({
-        //     options: {
-        //         name: events[i].name,
-        //         startTime: events[i].dates.start.localTime,
-        //         link: events[i].url
-        //     }
-        // })
-        eventMarkers[i] = new L.marker([events[i]._embedded.venues[0].location.latitude, events[i]._embedded.venues[0].location.longitude], {
+    
+        var events = data._embedded.events
+        var eventMarkers = []
+
+        for (var i = 0; i < events.length; i++){
+          eventMarkers[i] = new L.marker([events[i]._embedded.venues[0].location.latitude, events[i]._embedded.venues[0].location.longitude], {
             name: events[i].name,
             startTime: events[i].dates.start.localTime,
             link: events[i].url
           }).on('click', onMarkerClick)
           .bindPopup("<h3>" + events[i].name +"<h3><h3>Start Time: " +
-           events[i].dates.start.localTime + "</h3>"+ 
-           "<button onclick=onMarkerClick()>Add to My Events</button>")}
-
-    createMap(L.layerGroup(eventMarkers))
+           events[i].dates.start.localTime + "</h3>")}
+        createMap(L.layerGroup(eventMarkers))
+            }
 }
 
 
